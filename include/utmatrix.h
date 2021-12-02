@@ -134,11 +134,11 @@ TVector<ValType> TVector<ValType>::operator+(const ValType& val)
 {
 	if (val == 0)
 		return *this;
-	TVector<ValType> a (Size+StartIndex,0);
-	for (int i = 0; i < a.Size; i++)
+	TVector<ValType> a (Size+StartIndex);
+	for (int i = 0; i < StartIndex; i++)
 		a.pVector[i] = val;
-	for (int i = StartIndex; i < a.Size; i++)
-		a.pVector[i] += pVector[i-StartIndex];
+	for (int i = StartIndex; i < Size+StartIndex; i++)
+		a.pVector[i] = pVector[i-StartIndex]+val;
 	return a;
 } /*-------------------------------------------------------------------------*/
 
@@ -147,11 +147,11 @@ TVector<ValType> TVector<ValType>::operator-(const ValType& val)
 {
 	if (val == 0)
 		return *this;
-	TVector<ValType> a(Size + StartIndex, 0);
-	for (int i = 0; i < a.Size; i++)
+	TVector<ValType> a(Size + StartIndex);
+	for (int i = 0; i < StartIndex; i++)
 		a.pVector[i] = (-val);
-	for (int i = StartIndex; i < a.Size; i++)
-		a.pVector[i] += pVector[i - StartIndex];
+	for (int i = StartIndex; i < Size+StartIndex; i++)
+		a.pVector[i] = pVector[i - StartIndex]-val;
 	return a;
 } /*-------------------------------------------------------------------------*/
 
@@ -160,7 +160,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType& val)
 {
 	TVector<ValType> a = *this;
 	for (int i = 0; i < Size; i++)
-		a[i] *= val;
+		a.pVector[i] = pVector[i] * val;
 	return a;
 } /*-------------------------------------------------------------------------*/
 
